@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>আমাদের পরিবার - পারিবারিক বৃক্ষ | ইসলামিক ঐতিহ্য</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+            font-family: 'Hind Siliguri', sans-serif;
+            color: #1e2a3e;
+            padding: 2rem 1.5rem;
+        }
+
+        /* container */
+        .family-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.85);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
+            backdrop-filter: blur(2px);
+            padding: 2rem 1rem;
+        }
+
+        /* header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid #2c7a47;
+            display: inline-block;
+            width: 100%;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(120deg, #1f5e3a, #3b9b6e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+            padding: 0 1rem;
+        }
+        .header h1 i {
+            color: #2c7a47;
+            margin-right: 10px;
+        }
+        .islamic-quote {
+            background: #eef3e6;
+            border-right: 8px solid #2c7a47;
+            padding: 0.8rem 1.2rem;
+            margin: 1.2rem 0;
+            border-radius: 20px;
+            font-size: 1rem;
+            color: #2d4a22;
+            text-align: center;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .islamic-quote i {
+            color: #c49a2b;
+            margin: 0 6px;
+        }
+        .ayah {
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        /* Family tree layout using CSS Grid */
+        .tree-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        /* generation row */
+        .generation {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.8rem;
+            position: relative;
+        }
+
+        /* card person */
+        .person-card {
+            background: white;
+            border-radius: 1.5rem;
+            width: 280px;
+            padding: 1rem 0.8rem;
+            box-shadow: 0 12px 20px -10px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(60, 110, 60, 0.2);
+            position: relative;
+            cursor: pointer;
+        }
+        .person-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 28px -12px rgba(0,0,0,0.25);
+            border-color: #2c7a47;
+        }
+
+        /* role badge */
+        .role-badge {
+            display: inline-block;
+            background: #e9ecef;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.8rem;
+            font-weight: 600;
+            color: #2c3e2f;
+            margin-bottom: 8px;
+        }
+        .name {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #1e4620;
+            margin: 5px 0;
+            letter-spacing: -0.3px;
+        }
+        .detail {
+            font-size: 0.8rem;
+            color: #4a5b6e;
+            margin: 6px 0;
+            line-height: 1.3;
+        }
+        .spouse {
+            background: #fef3e2;
+            padding: 6px 10px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            margin: 8px 0;
+            font-weight: 500;
+            color: #b45f2b;
+        }
+        .kids {
+            margin-top: 10px;
+            border-top: 1px dashed #cfdfc9;
+            padding-top: 8px;
+            font-size: 0.75rem;
+        }
+        .kids span {
+            background: #f0f4ef;
+            display: inline-block;
+            border-radius: 16px;
+            padding: 3px 9px;
+            margin: 3px 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .icon-text {
+            margin-right: 6px;
+            color: #2f855a;
+        }
+
+        /* connecting line hint */
+        .generation::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #7caf7c, transparent);
+        }
+
+        /* footer islamic message */
+        .footer-note {
+            margin-top: 3rem;
+            text-align: center;
+            background: #1e2f2a;
+            color: #e2f0e2;
+            padding: 1.5rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+        }
+        .hadith {
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        /* modal for extra details */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background: #fff9ef;
+            max-width: 400px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 1.6rem;
+            text-align: center;
+            position: relative;
+            animation: fadeUp 0.3s;
+            border-top: 8px solid #2c7a47;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #6c757d;
+        }
+        .modal-islam {
+            background: #e9f5e9;
+            padding: 12px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+
+        button {
+            background: none;
+            border: none;
+        }
+        @media (max-width: 680px) {
+            .person-card { width: 260px; }
+            .header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="family-container">
+    <div class="header">
+        <h1><i class="fas fa-tree"></i> আমাদের পরিবার বৃক্ষ <i class="fas fa-hand-holding-heart"></i></h1>
+        <div class="islamic-quote">
+            <i class="fas fa-quran"></i> “আর তোমরা আল্লাহর রজ্জু একত্রে ধারণ কর এবং বিচ্ছিন্ন হয়ো না...” (সূরা আলে ইমরান: ১০৩)
+            <i class="fas fa-leaf"></i>
+        </div>
+    </div>
+
+    <div class="tree-grid" id="familyTreeGrid">
+        <!-- siblings section will be populated here dynamically with JS but we also embed structured data -->
+    </div>
+
+    <div class="footer-note">
+        <i class="fas fa-mosque"></i> রাসূলুল্লাহ (সা.) বলেছেন: “তোমাদের মধ্যে উত্তম ব্যক্তি সে, যে নিজ পরিবারের প্রতি উত্তম ব্যবহার করে।” (তিরমিজি)
+        <div class="hadith"><i class="fas fa-heart" style="color:#f1c40f;"></i> পরিবার ঈমানের ভিত্তি — দোয়া ও সংহতি রাখে বরকত।</div>
+    </div>
+</div>
+
+<!-- Modal for extra Islamic reminders -->
+<div id="familyModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <i class="fas fa-hands-praying" style="font-size: 2rem; color: #2c7a47;"></i>
+        <h3 id="modalName"></h3>
+        <p id="modalRole"></p>
+        <div id="modalSpecific" style="margin: 10px 0;"></div>
+        <div class="modal-islam">
+            <i class="fas fa-star-of-life"></i> <strong>পারিবারিক গুরুত্ব</strong><br>
+            “আর তোমার রব একাই আদেশ দিয়েছেন যে, তিনি ছাড়া অন্য কারো ইবাদত করো না এবং পিতা-মাতার সাথে সদ্ব্যবহার করো...” (সূরা ইসরা: ২৩)
+            <p style="font-size:0.8rem; margin-top:8px;">পরিবারের প্রতিটি সদস্য রহমতের বন্ধনে আবদ্ধ, পরস্পরের দোয়া ও সম্মান বৃদ্ধি করে ঈমানকে।</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------- Construct Family Data based on given information ----------
+    const familyMembers = [
+        { id: 1, name: "সুমাইয়া", role: "প্রধান শিক্ষক (সরকারি প্রাথমিক বিদ্যালয়)", spouse: "স্বামী: এমপিভুক্ত কলেজের প্রিন্সিপাল", kids: ["মুস্তাহাসিন হাসান সিফাত (HSC পরীক্ষার্থী)", "মোহসিনা হাসিবা ছোয়া (SSC পরীক্ষার্থী)"], extra: "বড় বোন, পারিবারিক পথপ্রদর্শক" },
+        { id: 2, name: "খাওলা কামরুন্নাহার", role: "সহকারী শিক্ষক", spouse: "স্বামী পরপারে (ইন্না লিল্লাহি ওয়া ইন্না ইলাইহি রাজিউন)", kids: ["সাদ মোহাম্মাদ নাফিস (ডিপ্লোমা ইঞ্জিনিয়ার, ২য় সেমিস্টার)", "সাদিক আহম্মদ নিহাল (৪র্থ শ্রেণি)"], extra: "ধৈর্য ও ঈমানের উদাহরণ" },
+        { id: 3, name: "ফারহানা", role: "সহকারী শিক্ষক", spouse: "স্বামী: সরকারি প্রাথমিক বিদ্যালয়ের প্রধান শিক্ষক", kids: ["সাইয়েদা তায়েবা জেবা (হলিক্রস কলেজ, ইন্টার)", "কাজী ফায়েকুজ্জামান রাফি (৮ম শ্রেণি, হেরিটেজ পাবলিক)", "কাজী ফাইয়াজুর রহমান রাবাত (দের বছর)"], extra: "তিন সন্তানের মা, শিক্ষানুরাগী" },
+        { id: 4, name: "শোয়েব", role: "এমপিভুক্ত হাইস্কুলের সহকারী শিক্ষক", spouse: "বউ: বিএ পাশ গৃহীনী", kids: ["৩য় শ্রেণির ছেলে", "৪ বছরের ছেলে"], extra: "পরিবারের একমাত্র ভাই, শিক্ষকতা পেশায়" },
+        { id: 5, name: "ফারজানা", role: "সহকারী শিক্ষক", spouse: "স্বামী প্রাক্তন ব্যাংকার (সুদ এড়িয়ে চাকরি ছাড়েন)", kids: ["সুবাত মুবাশ্বিরা ঝিল (৮ম শ্রেণি)", "সিনদিদ বীল (৪র্থ শ্রেণি)", "নুবা মাভসুরা সালওয়া (২ বছর)"], extra: "সুদ পরিহার করে আল্লাহর সন্তুষ্টি কামনাকারী পরিবার" },
+        { id: 6, name: "নাইম", role: "সরকারি জেলা স্কুলের ইংরেজি শিক্ষক", spouse: "বউ: মাদ্রাসা বোর্ডে ফাজিল + ইংরেজিতে অনার্স", kids: ["এক ছেলে (২ বছর)"], extra: "শিক্ষকতায় দক্ষ, দ্বীনি শিক্ষার সংমিশ্রণ" }
+    ];
+
+    // spouse details for each card sibling group also we want show 6 siblings as core brothers sisters
+    // Let's display them as siblings generation
+    function buildTree() {
+        const container = document.getElementById('familyTreeGrid');
+        // main heading for siblings: "ছয় ভাই-বোন"
+        const siblingsDiv = document.createElement('div');
+        siblingsDiv.classList.add('generation');
+        siblingsDiv.style.marginBottom = '0.5rem';
+        siblingsDiv.innerHTML = `<div style="width:100%; text-align:center; margin-bottom:-1rem;"><h3><i class="fas fa-users"></i> ছয় ভাই-বোন (সন্তান ও তাঁদের পরিবার) </h3></div>`;
+        container.appendChild(siblingsDiv);
+        
+        const generationRow = document.createElement('div');
+        generationRow.classList.add('generation');
+        
+        familyMembers.forEach(member => {
+            const card = document.createElement('div');
+            card.classList.add('person-card');
+            let genderIcon = (member.name === "শোয়েব" || member.name === "নাইম") ? '<i class="fas fa-male"></i>' : '<i class="fas fa-female"></i>';
+            let roleText = member.role;
+            if(member.id === 1) roleText = "প্রধান শিক্ষক " + member.role;
+            if(member.id === 6) roleText = "ইংরেজি শিক্ষক, জেলা স্কুল";
+            
+            // kids html
+            let kidsHtml = `<div class="kids"><i class="fas fa-child icon-text"></i> সন্তান: `;
+            member.kids.forEach(k => { kidsHtml += `<span>${k}</span> `; });
+            kidsHtml += `</div>`;
+            
+            card.innerHTML = `
+                <div class="role-badge">${genderIcon} ${member.name === "শোয়েব" ? "ভাই" : "বোন"}</div>
+                <div class="name">${member.name}</div>
+                <div class="detail"><i class="fas fa-briefcase icon-text"></i> ${roleText}</div>
+                <div class="spouse"><i class="fas fa-heart icon-text"></i> ${member.spouse}</div>
+                ${kidsHtml}
+                <div style="margin-top:8px; font-size:0.7rem; color:#6a9c78;"><i class="fas fa-info-circle"></i> ক্লিক করুন বিস্তারিত ও ইসলামিক উপদেশ</div>
+            `;
+            // modal trigger
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openModal(member);
+            });
+            generationRow.appendChild(card);
+        });
+        container.appendChild(generationRow);
+        
+        // extra generation for showing nephews/nieces structural note : already kids included inside each card. 
+        // Also add a beautiful Islamic reminder between.
+        const wisdomDiv = document.createElement('div');
+        wisdomDiv.classList.add('islamic-quote');
+        wisdomDiv.style.margin = '1.5rem auto';
+        wisdomDiv.style.width = '95%';
+        wisdomDiv.innerHTML = `<i class="fas fa-hand-peace"></i> “নিশ্চয়ই তোমাদের মধ্যে আমার কাছে সর্বাধিক প্রিয় এবং কিয়ামতের দিন সর্বোচ্চ মর্যাদার অধিকারী হবে তাদের মধ্যে যারা চরিত্রে সর্বোত্তম।” (তিরমিজি) <br> পরিবারের সদস্যদের শিক্ষকতা, ধৈর্য ও দ্বীনি মূল্যবোধ পারস্পরিক সংযোগকে মজবুত করে।`;
+        container.appendChild(wisdomDiv);
+        
+        // Additionally we add two sections: special note for Siblings’ children lineage highlight
+        const extraNote = document.createElement('div');
+        extraNote.style.backgroundColor = '#fef7e0';
+        extraNote.style.borderRadius = '28px';
+        extraNote.style.padding = '1.2rem';
+        extraNote.style.marginTop = '1.5rem';
+        extraNote.style.textAlign = 'center';
+        extraNote.innerHTML = `<i class="fas fa-seedling" style="color:#2e7d32;"></i> <strong>পরবর্তী প্রজন্মের শিক্ষা ও দোয়ার ধারা</strong><br>
+        সুমাইয়া আপার সন্তানরা এইচএসসি ও এসএসসি পরীক্ষার্থী — তাদের জন্য দোয়া কাম্য। খাওলা কামরুন্নাহার আপার বড় ছেলে ডিপ্লোমা ইঞ্জিনিয়ারিং-এ অগ্রসর। ফারহানার মেয়ে জেবা ইন্টার পড়ুয়া, ছোট ছেলে রাবাত নবাগত। শোয়েব ও ফারজানা পরিবার সুদমুক্ত জীবনের সংগ্রামী উদাহরণ। নাইম সাহেবের পরিবার দ্বীনি ও সাধারণ শিক্ষার সমন্বয় ঘটিয়েছে। আল্লাহ সবাইকে হেফাজত করুন।`;
+        container.appendChild(extraNote);
+        
+        // final additional children of Siblings (specific names) structured mention
+        const kidsRecap = document.createElement('div');
+        kidsRecap.className = 'generation';
+        kidsRecap.style.justifyContent = 'space-around';
+        kidsRecap.style.background = '#eef1e2';
+        kidsRecap.style.borderRadius = '2rem';
+        kidsRecap.style.padding = '1rem';
+        kidsRecap.innerHTML = `<div style="width:100%; text-align:center; font-weight:bold;">🌿 স্মরণীয় বংশ পরিচয় (নাম ও সম্পর্ক) 🌿</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:10px;">
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">মুস্তাহাসিন হাসান সিফাত</span>
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">মোহসিনা হাসিবা ছোয়া</span>
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">সাদ মোহাম্মাদ নাফিস</span>
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">সাদিক আহম্মদ নিহাল</span>
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">সাইয়েদা তায়েবা জেবা</span>
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">কাজী ফায়েকুজ্জামান রাফি</span>
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">কাজী ফাইয়াজুর রহমান রাবাত</span>
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">সুবাত মুবাশ্বিরা ঝিল</span>
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">সিনদিদ বীল</span>
+            <span style="background:#fff; padding:4px 12px; border-radius:40px;">নুবা মাভসুরা সালওয়া</span>
+        </div>`;
+        container.appendChild(kidsRecap);
+    }
+
+    // modal functions
+    const modal = document.getElementById('familyModal');
+    const modalName = document.getElementById('modalName');
+    const modalRole = document.getElementById('modalRole');
+    const modalSpecific = document.getElementById('modalSpecific');
+    
+    function openModal(member) {
+        modalName.innerText = member.name;
+        modalRole.innerText = member.role + (member.id===1 ? ' ও শিক্ষানুরাগী মা' : member.id===6 ? ' ও দ্বীনি শিক্ষার সমন্বয়কারী' : '');
+        let extraInfo = `<i class="fas fa-users"></i> স্বামী/স্ত্রী: ${member.spouse}<br><i class="fas fa-child"></i> সন্তান: ${member.kids.join(', ')}<br>`;
+        if(member.id === 1) extraInfo += `<i class="fas fa-chalkboard-teacher"></i> বিশেষ: সুমাইয়া আপুর স্বামী কলেজ প্রিন্সিপাল, সন্তানদের পরীক্ষার জন্য দোয়া করুন।`;
+        else if(member.id === 2) extraInfo += `<i class="fas fa-pray"></i> ধৈর্যশীলা মা, স্বামীর জন্য দোয়া ও সন্তানদের সাফল্য কামনা।`;
+        else if(member.id === 3) extraInfo += `<i class="fas fa-school"></i> ফারহানা ও স্বামী উভয়েই প্রধান শিক্ষক ও শিক্ষিকা, সন্তানেরা বিভিন্ন গ্রেডে অধ্যয়নরত।`;
+        else if(member.id === 4) extraInfo += `<i class="fas fa-male"></i> শোয়েব ভাই ও গৃহীনী স্ত্রী, দুই ছেলের পিতা। সন্তানদের ডিজিটাল ও নৈতিক শিক্ষায় যত্নশীল।`;
+        else if(member.id === 5) extraInfo += `<i class="fas fa-hand-holding-usd"></i> সুদ থেকে বেঁচে থাকার সংগ্রামী পরিবার। আল্লাহ তাআলা উত্তম রিজিক দিন। তাদের সন্তান ৮ম, ৪র্থ ও ২ বছরের মেয়ে।`;
+        else if(member.id === 6) extraInfo += `<i class="fas fa-graduation-cap"></i> নাইম ও তাঁর স্ত্রী মাদ্রাসা ও সাধারণ শিক্ষায় দক্ষ, দ্বীনি পরিবেশ গড়েছেন।`;
+        modalSpecific.innerHTML = extraInfo;
+        modal.style.display = 'flex';
+    }
+    
+    document.querySelector('.close-modal').addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    window.addEventListener('click', (e) => {
+        if(e.target === modal) modal.style.display = 'none';
+    });
+    
+    // also apply dynamic hadith rotating / random quote can be static as we added
+    // additionally, add specific quran for spouse of Kamrunnahar for patience
+    // let's incorporate a small rotating islamic tip
+    const islamicTips = [
+        "وَقُل رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا - ‘হে আমার পালনকর্তা, তাদের উভয়ের প্রতি দয়া কর, যেমন তারা শৈশবে আমাকে লালন-পালন করেছে।’ (সূরা ইসরা: ২৪)",
+        "রাসূলুল্লাহ (সা.) বলেছেন: ‘তোমাদের মধ্যে সর্বোত্তম সে, যে তার পরিবারের কাছে সর্বোত্তম।’ (সহিহ ইবনে হিব্বান)",
+        "আল্লাহ বলেন: ‘আর ভয় করো সেই আল্লাহকে, যাঁর নামে তোমরা একে অপরের কাছে চাও এবং আত্মীয়তার বন্ধন ছিন্ন করা থেকে সতর্ক হও।’ (সূরা নিসা: ১)"
+    ];
+    let tipIndex = 0;
+    const quoteDiv = document.querySelector('.islamic-quote');
+    if(quoteDiv && !quoteDiv.hasAttribute('data-tip-enabled')) {
+        setInterval(() => {
+            const existingP = quoteDiv.querySelector('.dynamic-tip');
+            if(existingP) existingP.remove();
+            const tipSpan = document.createElement('div');
+            tipSpan.className = 'dynamic-tip';
+            tipSpan.style.marginTop = '10px';
+            tipSpan.style.fontSize = '0.85rem';
+            tipSpan.style.fontWeight = '500';
+            tipSpan.style.borderTop = '1px solid #c2e0b0';
+            tipSpan.style.paddingTop = '6px';
+            tipSpan.innerHTML = `<i class="fas fa-mosque"></i>  ${islamicTips[tipIndex % islamicTips.length]}`;
+            quoteDiv.appendChild(tipSpan);
+            tipIndex++;
+        }, 8000);
+        quoteDiv.setAttribute('data-tip-enabled', 'true');
+    }
+    
+    buildTree();
+    
+    // Add a little dynamic interactive hover description for each card already done
+    
+    // Also, adding some additional notes about the importance of family ties in the footer section dynamic reminder
+    const footer = document.querySelector('.footer-note');
+    const extraHadith = document.createElement('div');
+    extraHadith.style.marginTop = '12px';
+    extraHadith.style.fontSize = '0.8rem';
+    extraHadith.innerHTML = '<i class="fas fa-hand-sparkles"></i> স্মরণ রাখবেন: আত্মীয়তার সম্পর্ক রক্ষাকারীদের জন্য জান্নাতে বৃদ্ধি ও বরকতের প্রতিশ্রুতি।';
+    footer.appendChild(extraHadith);
+    
+    // final step: adding a "Family Supplication" section
+    const supplicationDiv = document.createElement('div');
+    supplicationDiv.style.textAlign = 'center';
+    supplicationDiv.style.margin = '1.8rem auto 0';
+    supplicationDiv.style.padding = '1rem';
+    supplicationDiv.style.background = '#d9e6cf';
+    supplicationDiv.style.borderRadius = '40px';
+    supplicationDiv.innerHTML = `<i class="fas fa-duck"></i> পারিবারিক দোয়া: رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا <br> “হে আমাদের প্রতিপালক! আমাদের জন্য আমাদের স্ত্রী-সন্তানদেরকে চক্ষুশীতলকারী কর এবং আমাদেরকে মুত্তাকীদের ইমাম বানাও।” (সূরা ফুরকান: ৭৪)`;
+    document.querySelector('.family-container').appendChild(supplicationDiv);
+    
+    // small additional: connect the children of 5th sister names exactly as per user's input: Subat Mubashshira Zil, Sin deed Beel, Nuba Mavsura Salwa
+    // already mentioned above but ensure full names in kids recap: updated card kids names accordingly.
+    // modify for farjana kids name precisely.
+    const farjanaIndex = familyMembers.findIndex(m => m.name === "ফারজানা");
+    if(farjanaIndex !== -1) {
+        familyMembers[farjanaIndex].kids = ["সুবাত মুবাশ্বিরা ঝিল (৮ম শ্রেণি)", "সিনদিদ বীল (৪র্থ শ্রেণি)", "নুবা মাভসুরা সালওয়া (২ বছর)"];
+    }
+    const naimKids = familyMembers.find(m => m.name === "নাইম");
+    if(naimKids) naimKids.kids = ["এক ছেলে (২ বছর)"];
+    // re-render? Actually after rebuild we can't re-render whole, but initial build used original data, but it's fine showing names above. In kids recap we have all names. however ensure card consistency: we can rerun card generation? but html already generated, we dynamically update card via separate but not needed; since modal data updated.
+    // But better to update card text for farjana's kids spelling? In the initial array I set farjana kids earlier but not exact bengali name? I used correct string now but built earlier so card shows same as initial build. To fix minor we could patch but user sees names correctly in the recap banner and modal.
+    // however to be more precise, I will add a little script to update farjana card children after load.
+    window.addEventListener('load', () => {
+        const cards = document.querySelectorAll('.person-card');
+        const farjanaCard = Array.from(cards).find(card => card.querySelector('.name')?.innerText === "ফারজানা");
+        if(farjanaCard) {
+            const kidsDiv = farjanaCard.querySelector('.kids');
+            if(kidsDiv) {
+                kidsDiv.innerHTML = `<i class="fas fa-child icon-text"></i> সন্তান: <span>সুবাত মুবাশ্বিরা ঝিল (৮ম)</span> <span>সিনদিদ বীল (৪র্থ)</span> <span>নুবা মাভসুরা সালওয়া (২ বছর)</span>`;
+            }
+        }
+        const naimCard = Array.from(cards).find(card => card.querySelector('.name')?.innerText === "নাইম");
+        if(naimCard) {
+            const kidsDivN = naimCard.querySelector('.kids');
+            if(kidsDivN) kidsDivN.innerHTML = `<i class="fas fa-child icon-text"></i> সন্তান: <span>এক ছেলে (২ বছর)</span>`;
+        }
+    });
+</script>
+</body>
+</html>
